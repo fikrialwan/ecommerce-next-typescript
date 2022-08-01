@@ -1,11 +1,22 @@
+import { InferGetStaticPropsType } from "next";
 
-export default function Home() {
+export async function getStaticProps() {
+  const products = [1, 2, 3];
 
-  const message: string = 'hello world!'
+  return {
+    props: {
+      products
+    },
+    revalidate: 4 * 60 * 60,
+  }
+}
 
+export default function Home({
+  products
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div>
-      {message}
+      {products}
     </div>
   )
 }
